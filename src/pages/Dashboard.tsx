@@ -36,6 +36,7 @@ export default function Dashboard({ session }: { session: Session }) {
   const [selectedAppointment, setSelectedAppointment] = useState<Appointment | null>(null);
   const [showAllAppointments, setShowAllAppointments] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [checkoutLoading, setCheckoutLoading] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -66,6 +67,13 @@ export default function Dashboard({ session }: { session: Session }) {
 
     loadData();
   }, [session]);
+
+  // Paywall: redireciona para checkout se a assinatura não estiver ativa
+  useEffect(() => {
+    if (!loading && business && business.subscription_status !== 'active') {
+      navigate('/checkout');
+    }
+  }, [loading, business, navigate]);
 
   const filteredAppointments = appointments.filter(app =>
     isSameDay(parseISO(app.start_time), selectedDate)
@@ -122,16 +130,7 @@ export default function Dashboard({ session }: { session: Session }) {
     );
   }
 
-  // Somente assinaturas PAGAS e ativas têm acesso ao sistema
   const isSubscriptionActive = business.subscription_status === 'active';
-  const [checkoutLoading, setCheckoutLoading] = useState(false);
-
-  // Se não tem assinatura ativa, redireciona para o checkout automaticamente
-  useEffect(() => {
-    if (!loading && business && !isSubscriptionActive) {
-      navigate('/checkout');
-    }
-  }, [loading, business, isSubscriptionActive, navigate]);
 
   const handleCheckout = async () => {
     setCheckoutLoading(true);
