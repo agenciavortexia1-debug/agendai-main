@@ -134,10 +134,10 @@ export default function Personalization({ session }: { session: Session }) {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="bg-white rounded-xl p-6 md:p-10 shadow-sm border border-zinc-200"
+            className="bg-white rounded-lg p-6 md:p-10 shadow-sm border border-zinc-200"
           >
             <div className="flex items-center gap-4 mb-8 md:mb-10">
-              <div className="w-12 h-12 bg-primary/5 rounded-xl flex items-center justify-center flex-shrink-0">
+              <div className="w-12 h-12 bg-primary/5 rounded-lg flex items-center justify-center flex-shrink-0">
                 <Palette className="w-6 h-6 text-primary" />
               </div>
               <div>
@@ -152,7 +152,7 @@ export default function Personalization({ session }: { session: Session }) {
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                   <div className="space-y-4">
                     <label className="text-xs font-sans font-medium uppercase tracking-widest text-zinc-400 ml-1">Cor Principal</label>
-                    <div className="flex items-center gap-4 p-4 bg-zinc-50 rounded-xl border border-zinc-200">
+                    <div className="flex items-center gap-4 p-4 bg-zinc-50 rounded-lg border border-zinc-200">
                       <input
                         type="color"
                         value={business.primary_color || '#18181b'}
@@ -168,7 +168,7 @@ export default function Personalization({ session }: { session: Session }) {
 
                   <div className="space-y-4">
                     <label className="text-xs font-sans font-medium uppercase tracking-widest text-zinc-400 ml-1">Cor de Fundo</label>
-                    <div className="flex items-center gap-4 p-4 bg-zinc-50 rounded-xl border border-zinc-200">
+                    <div className="flex items-center gap-4 p-4 bg-zinc-50 rounded-lg border border-zinc-200">
                       <input
                         type="color"
                         value={business.bg_color || '#f8fafc'}
@@ -184,7 +184,7 @@ export default function Personalization({ session }: { session: Session }) {
 
                   <div className="space-y-4">
                     <label className="text-xs font-sans font-medium uppercase tracking-widest text-zinc-400 ml-1">Cor do Texto</label>
-                    <div className="flex items-center gap-4 p-4 bg-zinc-50 rounded-xl border border-zinc-200">
+                    <div className="flex items-center gap-4 p-4 bg-zinc-50 rounded-lg border border-zinc-200">
                       <input
                         type="color"
                         value={business.text_color || '#18181b'}
@@ -213,7 +213,7 @@ export default function Personalization({ session }: { session: Session }) {
                         type="button"
                         onClick={() => setBusiness({ ...business, font_family: font.id })}
                         className={cn(
-                          "p-4 rounded-xl border-2 transition-all text-center",
+                          "p-4 rounded-lg border-2 transition-all text-center",
                           business.font_family === font.id
                             ? "border-primary bg-primary/5"
                             : "border-zinc-100 hover:border-zinc-200 bg-zinc-50/50"
@@ -230,14 +230,14 @@ export default function Personalization({ session }: { session: Session }) {
                 <div className="space-y-4">
                   <label className="text-xs font-sans font-medium uppercase tracking-widest text-zinc-400 ml-1">Logo da Empresa</label>
                   <div className="space-y-4">
-                    <div className="p-8 border-2 border-dashed border-zinc-200 rounded-xl flex flex-col items-center justify-center text-center bg-zinc-50/50 hover:bg-zinc-50 transition-all cursor-pointer relative group">
+                    <div className="p-8 border-2 border-dashed border-zinc-200 rounded-lg flex flex-col items-center justify-center text-center bg-zinc-50/50 hover:bg-zinc-50 transition-all cursor-pointer relative group">
                       <input
                         type="file"
                         accept="image/*"
                         onChange={handleFileChange}
                         className="absolute inset-0 opacity-0 cursor-pointer"
                       />
-                      <div className="w-16 h-16 bg-white rounded-xl flex items-center justify-center mb-4 shadow-sm group-hover:scale-110 transition-transform border border-zinc-100">
+                      <div className="w-16 h-16 bg-white rounded-lg flex items-center justify-center mb-4 shadow-sm group-hover:scale-110 transition-transform border border-zinc-100">
                         <Upload className="w-6 h-6 text-primary" />
                       </div>
                       <p className="text-sm font-medium text-zinc-600">
@@ -247,7 +247,7 @@ export default function Personalization({ session }: { session: Session }) {
                     </div>
 
                     {(business.logo_url || logoFile) && (
-                      <div className="flex flex-col sm:flex-row items-center gap-6 p-6 bg-white rounded-xl border border-zinc-200 shadow-sm">
+                      <div className="flex flex-col sm:flex-row items-center gap-6 p-6 bg-white rounded-lg border border-zinc-200 shadow-sm">
                         <div className="w-20 h-20 rounded-lg overflow-hidden bg-zinc-50 flex items-center justify-center border border-zinc-100 flex-shrink-0">
                           <img
                             src={logoFile ? URL.createObjectURL(logoFile) : business.logo_url!}
@@ -276,7 +276,7 @@ export default function Personalization({ session }: { session: Session }) {
               </div>
 
               {error && (
-                <p className="text-red-500 text-sm text-center bg-red-50 p-4 rounded-2xl border border-red-100">
+                <p className="text-red-500 text-sm text-center bg-red-50 p-4 rounded-xl border border-red-100">
                   {error}
                 </p>
               )}
@@ -284,7 +284,7 @@ export default function Personalization({ session }: { session: Session }) {
               <button
                 type="submit"
                 disabled={saving || uploading}
-                className="w-full bg-primary text-white py-4 rounded-xl font-sans font-semibold hover:bg-zinc-800 transition-all shadow-md flex items-center justify-center gap-2 disabled:opacity-70"
+                className="w-full bg-primary text-white py-4 rounded-lg font-sans font-semibold hover:bg-zinc-800 transition-all shadow-md flex items-center justify-center gap-2 disabled:opacity-70"
               >
                 {saving || uploading ? (
                   <><Loader2 className="w-5 h-5 animate-spin" /> {uploading ? 'Enviando Logo...' : 'Salvando...'}</>

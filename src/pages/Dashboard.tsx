@@ -177,16 +177,16 @@ export default function Dashboard({ session }: { session: Session }) {
         <motion.div
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
-          className="bg-white p-10 rounded-xl shadow-md max-w-md text-center border border-zinc-200"
+          className="bg-white p-10 rounded-lg shadow-md max-w-md text-center border border-zinc-200"
         >
-          <div className="w-16 h-16 bg-primary/5 rounded-2xl flex items-center justify-center mx-auto mb-6">
+          <div className="w-16 h-16 bg-primary/5 rounded-xl flex items-center justify-center mx-auto mb-6">
             <Plus className="w-8 h-8 text-primary" />
           </div>
           <h2 className="text-2xl font-sans font-semibold mb-4 text-zinc-900">Configure seu negócio</h2>
           <p className="text-zinc-500 mb-8 font-sans">Para começar a receber agendamentos, precisamos de algumas informações básicas sobre sua empresa.</p>
           <Link
             to="/dashboard/settings"
-            className="block w-full bg-primary text-white py-4 rounded-xl font-sans font-semibold hover:bg-zinc-800 transition-all shadow-lg text-center"
+            className="block w-full bg-primary text-white py-4 rounded-lg font-sans font-semibold hover:bg-zinc-800 transition-all shadow-lg text-center"
           >
             Começar Configuração
           </Link>
@@ -242,7 +242,7 @@ export default function Dashboard({ session }: { session: Session }) {
               href={`/b/${business.slug}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center justify-center gap-2 bg-white px-6 py-3 rounded-xl border border-zinc-200 font-sans font-semibold text-zinc-900 hover:bg-zinc-50 transition-all shadow-sm w-full md:w-auto"
+              className="flex items-center justify-center gap-2 bg-white px-6 py-3 rounded-lg border border-zinc-200 font-sans font-semibold text-zinc-900 hover:bg-zinc-50 transition-all shadow-sm w-full md:w-auto"
             >
               <ExternalLink className="w-4 h-4" />
               Ver Link Público
@@ -254,9 +254,9 @@ export default function Dashboard({ session }: { session: Session }) {
           <motion.div
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="mb-8 bg-emerald-50 border border-emerald-200 rounded-2xl p-6 flex items-center gap-4 shadow-sm"
+            className="mb-8 bg-emerald-50 border border-emerald-200 rounded-xl p-6 flex items-center gap-4 shadow-sm"
           >
-            <div className="w-10 h-10 bg-emerald-100 rounded-xl flex items-center justify-center flex-shrink-0">
+            <div className="w-10 h-10 bg-emerald-100 rounded-lg flex items-center justify-center flex-shrink-0">
               <RefreshCw className="w-5 h-5 text-emerald-600 animate-spin-slow" />
             </div>
             <div>
@@ -267,9 +267,9 @@ export default function Dashboard({ session }: { session: Session }) {
         )}
 
         {isSubscriptionProblematic && (
-          <div className="mb-10 bg-amber-50 border border-amber-200 rounded-2xl p-6 flex flex-col md:flex-row items-center justify-between gap-6 shadow-sm">
+          <div className="mb-10 bg-amber-50 border border-amber-200 rounded-xl p-6 flex flex-col md:flex-row items-center justify-between gap-6 shadow-sm">
             <div className="flex items-center gap-4 text-center md:text-left">
-              <div className="w-12 h-12 bg-amber-100 rounded-xl flex items-center justify-center flex-shrink-0">
+              <div className="w-12 h-12 bg-amber-100 rounded-lg flex items-center justify-center flex-shrink-0">
                 <Bell className="w-6 h-6 text-amber-600" />
               </div>
               <div>
@@ -280,7 +280,7 @@ export default function Dashboard({ session }: { session: Session }) {
             <button
               onClick={handleCheckout}
               disabled={checkoutLoading}
-              className="whitespace-nowrap bg-amber-600 text-white px-8 py-3 rounded-xl font-sans font-semibold hover:bg-amber-700 transition-all shadow-md flex items-center gap-2 disabled:opacity-70"
+              className="whitespace-nowrap bg-amber-600 text-white px-8 py-3 rounded-lg font-sans font-semibold hover:bg-amber-700 transition-all shadow-md flex items-center gap-2 disabled:opacity-70"
             >
               {checkoutLoading ? <Loader2 className="w-4 h-4 animate-spin" /> : 'Assinar Plano Pro'}
             </button>
@@ -292,7 +292,7 @@ export default function Dashboard({ session }: { session: Session }) {
           <div className="lg:col-span-2 space-y-8">
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
 
-              <div className="bg-white p-6 rounded-xl border border-zinc-200 shadow-sm">
+              <div className="bg-white p-6 rounded-lg border border-zinc-200 shadow-sm">
                 <div className="flex items-center justify-between mb-4">
                   <div className="w-10 h-10 bg-emerald-50 rounded-lg flex items-center justify-center">
                     <Clock className="w-5 h-5 text-emerald-600" />
@@ -306,7 +306,7 @@ export default function Dashboard({ session }: { session: Session }) {
                 </h3>
               </div>
 
-              <div className="bg-white p-6 rounded-xl border border-zinc-200 shadow-sm relative overflow-hidden group">
+              <div className="bg-white p-6 rounded-lg border border-zinc-200 shadow-sm relative overflow-hidden group">
                 <div className="flex items-center justify-between mb-4">
                   <div className="w-10 h-10 bg-amber-50 rounded-lg flex items-center justify-center">
                     <Bell className="w-5 h-5 text-amber-600" />
@@ -335,7 +335,7 @@ export default function Dashboard({ session }: { session: Session }) {
 
 
             {/* Appointment List */}
-            <div className="bg-white rounded-xl border border-zinc-200 shadow-sm overflow-hidden">
+            <div className="bg-white rounded-lg border border-zinc-200 shadow-sm overflow-hidden">
               <div className="p-6 md:p-8 border-b border-zinc-200 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
                 <div>
                   <h3 className="text-xl font-sans font-semibold text-zinc-900">Compromissos</h3>
@@ -363,7 +363,7 @@ export default function Dashboard({ session }: { session: Session }) {
                       className="w-full p-6 flex items-center justify-between hover:bg-zinc-50 transition-colors text-left group"
                     >
                       <div className="flex items-center gap-4">
-                        <div className="w-12 h-12 bg-zinc-50 rounded-xl flex flex-col items-center justify-center text-zinc-400 flex-shrink-0 border border-zinc-100 group-hover:bg-white group-hover:border-primary/20 transition-colors">
+                        <div className="w-12 h-12 bg-zinc-50 rounded-lg flex flex-col items-center justify-center text-zinc-400 flex-shrink-0 border border-zinc-100 group-hover:bg-white group-hover:border-primary/20 transition-colors">
                           <span className="text-[10px] font-sans font-semibold uppercase">{format(parseISO(app.start_time), 'MMM', { locale: ptBR })}</span>
                           <span className="text-lg font-sans font-semibold leading-none text-zinc-900">{format(parseISO(app.start_time), 'dd')}</span>
                         </div>
@@ -397,7 +397,7 @@ export default function Dashboard({ session }: { session: Session }) {
           {/* Calendar Mini View */}
           <div className="space-y-8">
             {/* Recent Activity Feed */}
-            <div className="bg-white p-6 md:p-8 rounded-xl border border-zinc-200 shadow-sm">
+            <div className="bg-white p-6 md:p-8 rounded-lg border border-zinc-200 shadow-sm">
               <div className="flex items-center gap-3 mb-6">
                 <div className="w-8 h-8 bg-amber-50 rounded-lg flex items-center justify-center">
                   <Bell className="w-4 h-4 text-amber-600" />
@@ -410,7 +410,7 @@ export default function Dashboard({ session }: { session: Session }) {
                     <button
                       key={activity.id}
                       onClick={() => setSelectedAppointment(activity)}
-                      className="w-full flex gap-3 items-start text-left hover:bg-black/[0.02] p-2 rounded-2xl transition-colors group"
+                      className="w-full flex gap-3 items-start text-left hover:bg-black/[0.02] p-2 rounded-xl transition-colors group"
                     >
                       <div className={cn(
                         "w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0 mt-0.5 group-hover:scale-110 transition-transform",
@@ -446,7 +446,7 @@ export default function Dashboard({ session }: { session: Session }) {
               </div>
             </div>
 
-            <div className="bg-white p-6 md:p-8 rounded-xl border border-zinc-200 shadow-sm">
+            <div className="bg-white p-6 md:p-8 rounded-lg border border-zinc-200 shadow-sm">
               <div className="flex items-center justify-between mb-6">
                 <h3 className="text-xl font-sans font-semibold capitalize text-zinc-900">
                   {format(currentMonth, 'MMMM yyyy', { locale: ptBR })}
@@ -506,7 +506,7 @@ export default function Dashboard({ session }: { session: Session }) {
               </div>
             </div>
 
-            <div className="bg-primary p-8 rounded-xl text-white shadow-md relative overflow-hidden">
+            <div className="bg-primary p-8 rounded-lg text-white shadow-md relative overflow-hidden">
               <div className="relative z-10">
                 <h4 className="text-lg font-sans font-semibold mb-2">Compartilhe sua agenda</h4>
                 <p className="text-white/60 text-sm mb-6 leading-relaxed">Envie seu link para clientes e receba agendamentos automaticamente.</p>
@@ -515,7 +515,7 @@ export default function Dashboard({ session }: { session: Session }) {
                     navigator.clipboard.writeText(`${window.location.origin}/b/${business.slug}`);
                     alert('Link copiado!');
                   }}
-                  className="w-full bg-white/10 hover:bg-white/20 py-3 rounded-xl font-sans font-semibold transition-all backdrop-blur-md border border-white/10"
+                  className="w-full bg-white/10 hover:bg-white/20 py-3 rounded-lg font-sans font-semibold transition-all backdrop-blur-md border border-white/10"
                 >
                   Copiar Link
                 </button>
@@ -542,12 +542,12 @@ export default function Dashboard({ session }: { session: Session }) {
                 initial={{ opacity: 0, scale: 0.9, y: 20 }}
                 animate={{ opacity: 1, scale: 1, y: 0 }}
                 exit={{ opacity: 0, scale: 0.9, y: 20 }}
-                className="bg-white w-full max-w-lg rounded-xl shadow-2xl relative z-10 overflow-hidden"
+                className="bg-white w-full max-w-lg rounded-lg shadow-2xl relative z-10 overflow-hidden"
               >
                 <div className="p-8 md:p-10">
                   <div className="flex justify-between items-start mb-8">
                     <div className="flex items-center gap-4">
-                      <div className="w-14 h-14 bg-primary/5 rounded-xl flex items-center justify-center">
+                      <div className="w-14 h-14 bg-primary/5 rounded-lg flex items-center justify-center">
                         <CalendarIcon className="w-7 h-7 text-primary" />
                       </div>
                       <div>
@@ -571,7 +571,7 @@ export default function Dashboard({ session }: { session: Session }) {
                   </div>
 
                   <div className="space-y-6">
-                    <div className="flex items-center gap-4 p-4 bg-zinc-50 rounded-xl">
+                    <div className="flex items-center gap-4 p-4 bg-zinc-50 rounded-lg">
                       <Clock className="w-5 h-5 text-zinc-400" />
                       <div>
                         <p className="text-[10px] font-sans font-medium uppercase tracking-widest text-zinc-400">Data e Horário</p>
@@ -582,7 +582,7 @@ export default function Dashboard({ session }: { session: Session }) {
                     </div>
 
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                      <div className="flex items-center gap-4 p-4 border border-zinc-100 rounded-xl">
+                      <div className="flex items-center gap-4 p-4 border border-zinc-100 rounded-lg">
                         <Phone className="w-5 h-5 text-zinc-400" />
                         <div>
                           <p className="text-[10px] font-sans font-medium uppercase tracking-widest text-zinc-400">Telefone</p>
@@ -590,7 +590,7 @@ export default function Dashboard({ session }: { session: Session }) {
                         </div>
                       </div>
                       {selectedAppointment.service ? (
-                        <div className="flex items-center gap-4 p-4 border border-zinc-100 rounded-xl">
+                        <div className="flex items-center gap-4 p-4 border border-zinc-100 rounded-lg">
                           <Scissors className="w-5 h-5 text-zinc-400" />
                           <div>
                             <p className="text-[10px] font-sans font-medium uppercase tracking-widest text-zinc-400">Serviço</p>
@@ -598,7 +598,7 @@ export default function Dashboard({ session }: { session: Session }) {
                           </div>
                         </div>
                       ) : (
-                        <div className="flex items-center gap-4 p-4 border border-zinc-100 rounded-xl">
+                        <div className="flex items-center gap-4 p-4 border border-zinc-100 rounded-lg">
                           <Mail className="w-5 h-5 text-zinc-400" />
                           <div>
                             <p className="text-[10px] font-sans font-medium uppercase tracking-widest text-zinc-400">E-mail</p>
@@ -608,7 +608,7 @@ export default function Dashboard({ session }: { session: Session }) {
                       )}
                     </div>
 
-                    <div className="p-6 border border-zinc-100 rounded-2xl space-y-3">
+                    <div className="p-6 border border-zinc-100 rounded-xl space-y-3">
                       <div className="flex items-center gap-2 text-zinc-400">
                         <FileText className="w-4 h-4" />
                         <span className="text-[10px] font-sans font-medium uppercase tracking-widest">Observações</span>
@@ -622,7 +622,7 @@ export default function Dashboard({ session }: { session: Session }) {
                   <div className="mt-10 flex gap-4">
                     <button
                       onClick={() => setSelectedAppointment(null)}
-                      className="flex-1 bg-primary text-white py-4 rounded-xl font-sans font-semibold hover:bg-zinc-800 transition-all shadow-lg"
+                      className="flex-1 bg-primary text-white py-4 rounded-lg font-sans font-semibold hover:bg-zinc-800 transition-all shadow-lg"
                     >
                       Fechar
                     </button>
@@ -649,7 +649,7 @@ export default function Dashboard({ session }: { session: Session }) {
                 initial={{ opacity: 0, scale: 0.9, y: 20 }}
                 animate={{ opacity: 1, scale: 1, y: 0 }}
                 exit={{ opacity: 0, scale: 0.9, y: 20 }}
-                className="bg-white w-full max-w-2xl rounded-xl shadow-2xl relative z-10 overflow-hidden flex flex-col max-h-[80vh]"
+                className="bg-white w-full max-w-2xl rounded-lg shadow-2xl relative z-10 overflow-hidden flex flex-col max-h-[80vh]"
               >
                 <div className="p-8 border-b border-zinc-100 flex justify-between items-center">
                   <div>
@@ -673,7 +673,7 @@ export default function Dashboard({ session }: { session: Session }) {
                       appointments.map((app) => (
                         <div
                           key={app.id}
-                          className="p-4 flex items-center justify-between hover:bg-zinc-50 transition-colors rounded-2xl"
+                          className="p-4 flex items-center justify-between hover:bg-zinc-50 transition-colors rounded-xl"
                         >
                           <div className="flex items-center gap-4">
                             <div className="w-10 h-10 bg-zinc-50 rounded-lg flex flex-col items-center justify-center text-primary flex-shrink-0 border border-zinc-100">

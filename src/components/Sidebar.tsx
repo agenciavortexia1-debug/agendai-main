@@ -56,7 +56,7 @@ export default function Sidebar() {
                 key={item.path}
                 to={item.path}
                 className={cn(
-                  "flex items-center gap-3 px-4 py-3 rounded-xl font-medium transition-all group relative",
+                  "flex items-center gap-3 px-4 py-3 rounded-lg font-medium transition-all group relative",
                   isActive
                     ? "bg-zinc-50 text-primary"
                     : "text-zinc-400 hover:text-zinc-900 hover:bg-zinc-50",
@@ -78,7 +78,7 @@ export default function Sidebar() {
           <button
             onClick={() => setIsCollapsed(!isCollapsed)}
             className={cn(
-              "flex items-center px-4 py-3 w-full text-zinc-400 hover:text-zinc-900 hover:bg-zinc-50 rounded-xl font-medium transition-all",
+              "flex items-center px-4 py-3 w-full text-zinc-400 hover:text-zinc-900 hover:bg-zinc-50 rounded-lg font-medium transition-all",
               isCollapsed ? "justify-center gap-0" : "justify-start gap-3"
             )}
           >
@@ -87,7 +87,7 @@ export default function Sidebar() {
           <button
             onClick={handleLogout}
             className={cn(
-              "flex items-center gap-3 px-4 py-3 w-full text-red-500 hover:bg-red-50 rounded-xl font-medium transition-all",
+              "flex items-center gap-3 px-4 py-3 w-full text-red-500 hover:bg-red-50 rounded-lg font-medium transition-all",
               isCollapsed && "justify-center"
             )}
           >

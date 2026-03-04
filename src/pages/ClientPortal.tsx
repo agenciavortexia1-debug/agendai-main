@@ -105,7 +105,7 @@ export default function ClientPortal() {
             <p className="text-black/40">Gerencie seus horários marcados</p>
           </div>
           <div className="flex items-center gap-4">
-            <div className="flex items-center gap-3 bg-white px-4 py-2 rounded-2xl border border-black/5">
+            <div className="flex items-center gap-3 bg-white px-4 py-2 rounded-xl border border-black/5">
               <div className="w-8 h-8 bg-[#5A5A40]/10 rounded-full flex items-center justify-center">
                 <User className="w-4 h-4 text-[#5A5A40]" />
               </div>
@@ -113,7 +113,7 @@ export default function ClientPortal() {
             </div>
             <button
               onClick={handleLogout}
-              className="p-3 bg-white text-red-500 rounded-2xl hover:bg-red-50 transition-colors border border-black/5"
+              className="p-3 bg-white text-red-500 rounded-xl hover:bg-red-50 transition-colors border border-black/5"
               title="Sair"
             >
               <LogOut className="w-5 h-5" />
@@ -140,7 +140,7 @@ export default function ClientPortal() {
                   >
                     <div className="flex items-start justify-between mb-6">
                       <div className="flex items-center gap-4">
-                        <div className="w-12 h-12 bg-[#f5f5f0] rounded-2xl flex items-center justify-center overflow-hidden">
+                        <div className="w-12 h-12 bg-[#f5f5f0] rounded-xl flex items-center justify-center overflow-hidden">
                           {app.business.logo_url ? (
                             <img src={app.business.logo_url} alt={app.business.name} className="w-full h-full object-cover" />
                           ) : (
@@ -169,14 +169,14 @@ export default function ClientPortal() {
                       <button
                         onClick={() => handleCancel(app.id)}
                         disabled={cancellingId === app.id}
-                        className="flex-1 bg-red-50 text-red-600 py-3 rounded-2xl font-sans font-semibold hover:bg-red-100 transition-all flex items-center justify-center gap-2 disabled:opacity-50"
+                        className="flex-1 bg-red-50 text-red-600 py-3 rounded-xl font-sans font-semibold hover:bg-red-100 transition-all flex items-center justify-center gap-2 disabled:opacity-50"
                       >
                         {cancellingId === app.id ? <Loader2 className="w-4 h-4 animate-spin" /> : <XCircle className="w-4 h-4" />}
                         Cancelar
                       </button>
                       <button
                         onClick={() => navigate(`/b/${app.business.slug}`)}
-                        className="flex-1 bg-[#5A5A40] text-white py-3 rounded-2xl font-sans font-semibold hover:bg-[#4a4a35] transition-all flex items-center justify-center gap-2"
+                        className="flex-1 bg-[#5A5A40] text-white py-3 rounded-xl font-sans font-semibold hover:bg-[#4a4a35] transition-all flex items-center justify-center gap-2"
                       >
                         Remarcar
                       </button>
@@ -203,7 +203,7 @@ export default function ClientPortal() {
                   {past.map(app => (
                     <div key={app.id} className="p-6 flex items-center justify-between hover:bg-[#f5f5f0]/50 transition-colors">
                       <div className="flex items-center gap-4">
-                        <div className="w-10 h-10 bg-[#f5f5f0] rounded-xl flex items-center justify-center text-black/20">
+                        <div className="w-10 h-10 bg-[#f5f5f0] rounded-lg flex items-center justify-center text-black/20">
                           <Calendar className="w-5 h-5" />
                         </div>
                         <div>

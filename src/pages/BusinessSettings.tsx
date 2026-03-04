@@ -105,10 +105,10 @@ export default function BusinessSettings({ session }: { session: Session }) {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="bg-white rounded-xl p-6 md:p-10 shadow-sm border border-zinc-200"
+            className="bg-white rounded-lg p-6 md:p-10 shadow-sm border border-zinc-200"
           >
             <div className="flex items-center gap-4 mb-8 md:mb-10">
-              <div className="w-12 h-12 bg-primary/5 rounded-xl flex items-center justify-center flex-shrink-0">
+              <div className="w-12 h-12 bg-primary/5 rounded-lg flex items-center justify-center flex-shrink-0">
                 <Building2 className="w-6 h-6 text-primary" />
               </div>
               <div>
@@ -136,7 +136,7 @@ export default function BusinessSettings({ session }: { session: Session }) {
                           .replace(/^-+|-+$/g, '');
                         setBusiness({ ...business, name: newName, slug: newSlug });
                       }}
-                      className="w-full bg-zinc-50 border border-zinc-200 rounded-xl py-4 pl-12 pr-4 focus:ring-2 focus:ring-primary transition-all text-zinc-900"
+                      className="w-full bg-zinc-50 border border-zinc-200 rounded-lg py-4 pl-12 pr-4 focus:ring-2 focus:ring-primary transition-all text-zinc-900"
                       placeholder="Ex: Barbearia do João"
                     />
                   </div>
@@ -146,7 +146,7 @@ export default function BusinessSettings({ session }: { session: Session }) {
                   <label className="text-xs font-sans font-medium uppercase tracking-widest text-zinc-400 ml-1">Slug (Link Público)</label>
                   <div className="relative">
                     <Globe className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-zinc-300" />
-                    <div className="flex items-center bg-zinc-50 border border-zinc-200 rounded-xl">
+                    <div className="flex items-center bg-zinc-50 border border-zinc-200 rounded-lg">
                       <span className="pl-12 pr-1 text-zinc-400 font-medium hidden sm:inline">agendai.com/b/</span>
                       <input
                         type="text"
@@ -167,7 +167,7 @@ export default function BusinessSettings({ session }: { session: Session }) {
                     <select
                       value={business.appointment_duration_minutes}
                       onChange={(e) => setBusiness({ ...business, appointment_duration_minutes: Number(e.target.value) })}
-                      className="w-full bg-zinc-50 border border-zinc-200 rounded-xl py-4 pl-12 pr-4 focus:ring-2 focus:ring-primary transition-all appearance-none"
+                      className="w-full bg-zinc-50 border border-zinc-200 rounded-lg py-4 pl-12 pr-4 focus:ring-2 focus:ring-primary transition-all appearance-none"
                     >
                       <option value={15}>15 minutos</option>
                       <option value={30}>30 minutos</option>
@@ -189,14 +189,14 @@ export default function BusinessSettings({ session }: { session: Session }) {
                         value={newService}
                         onChange={(e) => setNewService(e.target.value)}
                         onKeyPress={(e) => e.key === 'Enter' && (e.preventDefault(), addService())}
-                        className="w-full bg-zinc-50 border border-zinc-200 rounded-xl py-4 pl-12 pr-4 focus:ring-2 focus:ring-primary transition-all"
+                        className="w-full bg-zinc-50 border border-zinc-200 rounded-lg py-4 pl-12 pr-4 focus:ring-2 focus:ring-primary transition-all"
                         placeholder="Ex: Corte de Cabelo"
                       />
                     </div>
                     <button
                       type="button"
                       onClick={addService}
-                      className="bg-primary text-white p-4 rounded-xl hover:bg-zinc-800 transition-all shadow-md"
+                      className="bg-primary text-white p-4 rounded-lg hover:bg-zinc-800 transition-all shadow-md"
                     >
                       <Plus className="w-6 h-6" />
                     </button>
@@ -206,7 +206,7 @@ export default function BusinessSettings({ session }: { session: Session }) {
                     {(business.services || []).map((service) => (
                       <div
                         key={service}
-                        className="flex items-center gap-2 bg-white border border-zinc-200 px-4 py-2 rounded-xl shadow-sm group"
+                        className="flex items-center gap-2 bg-white border border-zinc-200 px-4 py-2 rounded-lg shadow-sm group"
                       >
                         <span className="text-sm font-medium">{service}</span>
                         <button
@@ -227,7 +227,7 @@ export default function BusinessSettings({ session }: { session: Session }) {
               </div>
 
               {error && (
-                <p className="text-red-500 text-sm text-center bg-red-50 p-4 rounded-2xl border border-red-100">
+                <p className="text-red-500 text-sm text-center bg-red-50 p-4 rounded-xl border border-red-100">
                   {error}
                 </p>
               )}
@@ -235,7 +235,7 @@ export default function BusinessSettings({ session }: { session: Session }) {
               <button
                 type="submit"
                 disabled={saving}
-                className="w-full bg-primary text-white py-4 rounded-xl font-sans font-semibold hover:bg-zinc-800 transition-all shadow-md flex items-center justify-center gap-2 disabled:opacity-70"
+                className="w-full bg-primary text-white py-4 rounded-lg font-sans font-semibold hover:bg-zinc-800 transition-all shadow-md flex items-center justify-center gap-2 disabled:opacity-70"
               >
                 {saving ? <Loader2 className="w-5 h-5 animate-spin" /> : <><Save className="w-5 h-5" /> Salvar Alterações</>}
               </button>

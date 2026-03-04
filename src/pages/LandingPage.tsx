@@ -72,7 +72,7 @@ export default function LandingPage() {
       {/* Navigation */}
       <nav className="border-b border-zinc-100/60 px-6 py-4 flex justify-between items-center bg-white/70 backdrop-blur-xl sticky top-0 z-50">
         <div className="flex items-center gap-2.5 group cursor-pointer">
-          <div className="w-10 h-10 bg-gradient-to-br from-zinc-800 to-black rounded-xl flex items-center justify-center shadow-xl group-hover:shadow-primary/20 transition-all duration-500 ring-1 ring-white/10">
+          <div className="w-10 h-10 bg-gradient-to-br from-zinc-800 to-black rounded-lg flex items-center justify-center shadow-xl group-hover:shadow-primary/20 transition-all duration-500 ring-1 ring-white/10">
             <Calendar className="text-white w-5 h-5" />
           </div>
           <div className="flex flex-col -space-y-1">
@@ -83,8 +83,8 @@ export default function LandingPage() {
         <div className="flex items-center gap-6 text-sm font-sans font-semibold">
           <Link to="/auth" className="text-zinc-500 hover:text-zinc-900 transition-colors">Acessar</Link>
           <Link to="/checkout" className="relative group">
-            <div className="absolute -inset-0.5 bg-gradient-to-r from-primary to-zinc-400 rounded-xl blur opacity-20 group-hover:opacity-40 transition duration-1000 group-hover:duration-200"></div>
-            <div className="relative bg-zinc-900 text-white px-5 py-2.5 rounded-xl text-sm hover:bg-zinc-800 transition-all shadow-xl ring-1 ring-zinc-900/5">
+            <div className="absolute -inset-0.5 bg-gradient-to-r from-primary to-zinc-400 rounded-lg blur opacity-20 group-hover:opacity-40 transition duration-1000 group-hover:duration-200"></div>
+            <div className="relative bg-zinc-900 text-white px-5 py-2.5 rounded-lg text-sm hover:bg-zinc-800 transition-all shadow-xl ring-1 ring-zinc-900/5">
               Assinar Agora
             </div>
           </Link>
@@ -109,8 +109,8 @@ export default function LandingPage() {
             </p>
             <div className="flex flex-col sm:flex-row gap-4 lg:gap-6 justify-center lg:justify-start">
               <Link to="/checkout" className="group relative">
-                <div className="absolute -inset-1 bg-gradient-to-r from-primary/20 to-zinc-900/0 rounded-2xl blur-xl transition-all duration-1000 group-hover:blur-2xl"></div>
-                <div className="relative bg-zinc-900 text-white px-8 lg:px-10 py-4 lg:py-5 rounded-2xl text-base lg:text-lg font-sans font-semibold hover:bg-zinc-800 transition-all flex items-center justify-center gap-3 shadow-2xl shadow-zinc-200 ring-1 ring-white/10">
+                <div className="absolute -inset-1 bg-gradient-to-r from-primary/20 to-zinc-900/0 rounded-xl blur-xl transition-all duration-1000 group-hover:blur-2xl"></div>
+                <div className="relative bg-zinc-900 text-white px-8 lg:px-10 py-4 lg:py-5 rounded-xl text-base lg:text-lg font-sans font-semibold hover:bg-zinc-800 transition-all flex items-center justify-center gap-3 shadow-2xl shadow-zinc-200 ring-1 ring-white/10">
                   Assinar Pro por R$ 39,90/mês
                   <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform text-primary" />
                 </div>
@@ -178,7 +178,7 @@ export default function LandingPage() {
                   </h3>
                   <p className="text-zinc-400 text-[10px] font-sans font-bold uppercase tracking-[0.2em] mt-2">Horários para hoje</p>
                 </div>
-                <div className="w-14 h-14 bg-zinc-50 rounded-2xl flex items-center justify-center border border-zinc-100 shadow-inner">
+                <div className="w-14 h-14 bg-zinc-50 rounded-xl flex items-center justify-center border border-zinc-100 shadow-inner">
                   <Clock className="w-6 h-6 text-primary" />
                 </div>
               </div>
@@ -188,7 +188,7 @@ export default function LandingPage() {
                     key={time}
                     onClick={() => setDemoSlot(time)}
                     className={cn(
-                      "p-6 rounded-2xl text-center font-sans font-bold transition-all duration-300 border",
+                      "p-6 rounded-xl text-center font-sans font-bold transition-all duration-300 border",
                       demoSlot === time
                         ? "bg-zinc-900 text-white shadow-[0_20px_40px_-10px_rgba(0,0,0,0.3)] border-zinc-900 scale-[1.05]"
                         : "bg-zinc-50 border-zinc-100 hover:border-zinc-300 hover:bg-white text-zinc-500"
@@ -207,21 +207,21 @@ export default function LandingPage() {
         {/* Features */}
         <div className="grid md:grid-cols-3 gap-16 mt-40">
           <div className="space-y-6 group">
-            <div className="w-14 h-14 bg-white rounded-xl shadow-md flex items-center justify-center border border-zinc-100 group-hover:scale-110 transition-transform">
+            <div className="w-14 h-14 bg-white rounded-lg shadow-md flex items-center justify-center border border-zinc-100 group-hover:scale-110 transition-transform">
               <Shield className="w-7 h-7 text-primary" />
             </div>
             <h4 className="text-xl font-sans font-semibold text-zinc-900">Segurança Total</h4>
             <p className="text-zinc-500 leading-relaxed font-medium">Seus dados e de seus clientes protegidos com criptografia de ponta a ponta.</p>
           </div>
           <div className="space-y-6 group">
-            <div className="w-14 h-14 bg-white rounded-xl shadow-md flex items-center justify-center border border-zinc-100 group-hover:scale-110 transition-transform">
+            <div className="w-14 h-14 bg-white rounded-lg shadow-md flex items-center justify-center border border-zinc-100 group-hover:scale-110 transition-transform">
               <Calendar className="w-7 h-7 text-primary" />
             </div>
             <h4 className="text-xl font-sans font-semibold text-zinc-900">Link Personalizado</h4>
             <p className="text-zinc-500 leading-relaxed font-medium">Crie um link profissional e compartilhe em suas redes sociais com um clique.</p>
           </div>
           <div className="space-y-6 group">
-            <div className="w-14 h-14 bg-white rounded-xl shadow-md flex items-center justify-center border border-zinc-100 group-hover:scale-110 transition-transform">
+            <div className="w-14 h-14 bg-white rounded-lg shadow-md flex items-center justify-center border border-zinc-100 group-hover:scale-110 transition-transform">
               <Zap className="w-7 h-7 text-primary" />
             </div>
             <h4 className="text-xl font-sans font-semibold text-zinc-900">Automação Total</h4>
@@ -241,7 +241,7 @@ export default function LandingPage() {
               <motion.div
                 key={i}
                 whileHover={{ y: -5 }}
-                className="bg-white p-8 rounded-2xl border border-zinc-100 shadow-sm relative flex flex-col"
+                className="bg-white p-8 rounded-xl border border-zinc-100 shadow-sm relative flex flex-col"
               >
                 <Quote className="absolute top-6 right-6 w-8 h-8 text-zinc-100" />
                 <div className="flex gap-1 mb-5">
@@ -252,7 +252,7 @@ export default function LandingPage() {
                 <p className="text-zinc-600 italic mb-8 leading-relaxed flex-grow">"{t.text}"</p>
                 <div className="flex items-center gap-3 pt-5 border-t border-zinc-50">
                   <div
-                    className="w-10 h-10 rounded-xl flex items-center justify-center text-white font-bold text-sm flex-shrink-0"
+                    className="w-10 h-10 rounded-lg flex items-center justify-center text-white font-bold text-sm flex-shrink-0"
                     style={{ backgroundColor: t.companyColor }}
                   >
                     {t.avatar}
@@ -307,7 +307,7 @@ export default function LandingPage() {
 
                 <Link
                   to="/checkout"
-                  className="w-full py-4 rounded-xl bg-primary text-white font-sans font-bold text-lg hover:bg-white hover:text-zinc-900 transition-all text-center block shadow-lg shadow-primary/30"
+                  className="w-full py-4 rounded-lg bg-primary text-white font-sans font-bold text-lg hover:bg-white hover:text-zinc-900 transition-all text-center block shadow-lg shadow-primary/30"
                 >
                   Assinar Agora →
                 </Link>

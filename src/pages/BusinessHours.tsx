@@ -108,10 +108,10 @@ export default function BusinessHours({ session }: { session: Session }) {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="bg-white rounded-xl p-4 md:p-6 shadow-sm border border-zinc-200"
+            className="bg-white rounded-lg p-4 md:p-6 shadow-sm border border-zinc-200"
           >
             <div className="flex items-center gap-4 mb-6">
-              <div className="w-10 h-10 bg-primary/5 rounded-xl flex items-center justify-center flex-shrink-0">
+              <div className="w-10 h-10 bg-primary/5 rounded-lg flex items-center justify-center flex-shrink-0">
                 <Clock className="w-5 h-5 text-primary" />
               </div>
               <div>
@@ -123,7 +123,7 @@ export default function BusinessHours({ session }: { session: Session }) {
             <div className="space-y-2 mb-6">
               {hours.map((hour, index) => (
                 <div key={index} className={cn(
-                  "flex flex-col sm:flex-row items-start sm:items-center justify-between p-2 sm:p-2.5 rounded-xl border transition-all gap-2 sm:gap-0",
+                  "flex flex-col sm:flex-row items-start sm:items-center justify-between p-2 sm:p-2.5 rounded-lg border transition-all gap-2 sm:gap-0",
                   hour.is_closed ? "bg-zinc-50 border-zinc-100 opacity-60" : "bg-white border-zinc-200 shadow-sm"
                 )}>
                   <div className="flex items-center gap-3 w-full sm:w-32">
@@ -185,7 +185,7 @@ export default function BusinessHours({ session }: { session: Session }) {
             <button
               onClick={handleSave}
               disabled={saving}
-              className="w-full bg-primary text-white py-4 rounded-xl font-sans font-semibold hover:bg-zinc-800 transition-all shadow-md flex items-center justify-center gap-2 disabled:opacity-70"
+              className="w-full bg-primary text-white py-4 rounded-lg font-sans font-semibold hover:bg-zinc-800 transition-all shadow-md flex items-center justify-center gap-2 disabled:opacity-70"
             >
               {saving ? <Loader2 className="w-5 h-5 animate-spin" /> : <><Save className="w-5 h-5" /> Salvar Horários</>}
             </button>

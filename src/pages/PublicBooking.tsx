@@ -344,7 +344,7 @@ export default function PublicBooking() {
   if (error || !business) {
     return (
       <div className="min-h-screen flex items-center justify-center p-6 bg-zinc-50">
-        <div className="bg-white p-10 rounded-2xl shadow-xl max-w-md text-center border border-zinc-200">
+        <div className="bg-white p-10 rounded-xl shadow-xl max-w-md text-center border border-zinc-200">
           <AlertCircle className="w-12 h-12 text-red-500 mx-auto mb-4" />
           <h2 className="text-2xl font-sans font-semibold mb-2 text-zinc-900">{error || 'Algo deu errado'}</h2>
           <p className="text-zinc-500">O link que você acessou pode estar incorreto ou o negócio não existe mais.</p>
@@ -379,9 +379,9 @@ export default function PublicBooking() {
             </div>
           )}
           {business.logo_url ? (
-            <img src={business.logo_url} alt={business.name} className="w-20 h-20 md:w-24 md:h-24 rounded-2xl mx-auto mb-4 md:mb-6 shadow-md object-cover" referrerPolicy="no-referrer" />
+            <img src={business.logo_url} alt={business.name} className="w-20 h-20 md:w-24 md:h-24 rounded-xl mx-auto mb-4 md:mb-6 shadow-md object-cover" referrerPolicy="no-referrer" />
           ) : (
-            <div className="w-16 h-16 md:w-20 md:h-20 bg-primary rounded-2xl flex items-center justify-center mx-auto mb-4 md:mb-6 shadow-xl shadow-primary/10">
+            <div className="w-16 h-16 md:w-20 md:h-20 bg-primary rounded-xl flex items-center justify-center mx-auto mb-4 md:mb-6 shadow-xl shadow-primary/10">
               <CalendarIcon className="text-white w-8 h-8 md:w-10 md:h-10" />
             </div>
           )}
@@ -409,7 +409,7 @@ export default function PublicBooking() {
                 id="my-appointments"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="bg-white p-6 md:p-8 rounded-2xl shadow-xl border border-zinc-100"
+                className="bg-white p-6 md:p-8 rounded-xl shadow-xl border border-zinc-100"
               >
                 <div className="flex items-center justify-between mb-6">
                   <h2 className="text-xl font-sans font-semibold text-zinc-900">Seus Agendamentos</h2>
@@ -425,7 +425,7 @@ export default function PublicBooking() {
                 ) : userAppointments.length > 0 ? (
                   <div className="space-y-4">
                     {userAppointments.map((app) => (
-                      <div key={app.id} className="flex flex-col md:flex-row md:items-center justify-between p-4 bg-zinc-50 rounded-xl gap-4 border border-zinc-100">
+                      <div key={app.id} className="flex flex-col md:flex-row md:items-center justify-between p-4 bg-zinc-50 rounded-lg gap-4 border border-zinc-100">
                         <div className="flex items-center gap-4">
                           <div className="w-10 h-10 bg-primary rounded-lg flex items-center justify-center text-white">
                             <CalendarIcon className="w-5 h-5" />
@@ -453,14 +453,14 @@ export default function PublicBooking() {
                     ))}
                   </div>
                 ) : (
-                  <div className="text-center py-8 bg-zinc-50/50 rounded-xl border border-dashed border-zinc-200">
+                  <div className="text-center py-8 bg-zinc-50/50 rounded-lg border border-dashed border-zinc-200">
                     <p className="text-zinc-400 text-sm">Você ainda não possui agendamentos marcados.</p>
                   </div>
                 )}
               </motion.div>
 
               {reschedulingAppointment && (
-                <div className="bg-[var(--primary-color)] text-white p-4 rounded-2xl flex items-center justify-between">
+                <div className="bg-[var(--primary-color)] text-white p-4 rounded-xl flex items-center justify-between">
                   <p className="text-sm font-medium">
                     Remarcando agendamento de {format(parseISO(reschedulingAppointment.start_time), "d/MM 'às' HH:mm")}
                   </p>
@@ -481,7 +481,7 @@ export default function PublicBooking() {
                 className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8"
               >
                 {/* Calendar Section */}
-                <div className="bg-white p-6 md:p-8 rounded-2xl shadow-xl border border-zinc-100">
+                <div className="bg-white p-6 md:p-8 rounded-xl shadow-xl border border-zinc-100">
                   <div className="flex items-center justify-between mb-6 md:mb-8">
                     <h2 className="text-lg md:text-xl font-sans font-semibold text-zinc-900">Selecione o Dia</h2>
                     <div className="flex gap-2">
@@ -516,7 +516,7 @@ export default function PublicBooking() {
                           disabled={isPast}
                           onClick={() => setSelectedDate(date)}
                           className={cn(
-                            "aspect-square rounded-xl md:rounded-2xl flex flex-col items-center justify-center transition-all",
+                            "aspect-square rounded-lg md:rounded-xl flex flex-col items-center justify-center transition-all",
                             isSelected ? "bg-[var(--primary-color)] text-white shadow-lg scale-105" : "hover:bg-black/5",
                             isPast && "opacity-20 cursor-not-allowed"
                           )}
@@ -532,7 +532,7 @@ export default function PublicBooking() {
                 </div>
 
                 {/* Slots Section */}
-                <div className="bg-white p-6 md:p-8 rounded-2xl shadow-xl border border-zinc-100">
+                <div className="bg-white p-6 md:p-8 rounded-xl shadow-xl border border-zinc-100">
                   <h2 className="text-lg md:text-xl font-sans font-semibold mb-6 md:mb-8 text-zinc-900">Horários Disponíveis</h2>
 
                   {loadingSlots ? (
@@ -546,7 +546,7 @@ export default function PublicBooking() {
                         <button
                           key={i}
                           onClick={() => handleSlotSelect(slot)}
-                          className="p-3 md:p-4 bg-zinc-50 rounded-xl text-center font-sans font-semibold hover:bg-primary hover:text-white transition-all group border border-zinc-100 shadow-sm hover:shadow-lg hover:shadow-primary/20"
+                          className="p-3 md:p-4 bg-zinc-50 rounded-lg text-center font-sans font-semibold hover:bg-primary hover:text-white transition-all group border border-zinc-100 shadow-sm hover:shadow-lg hover:shadow-primary/20"
                         >
                           <Clock className="w-4 h-4 mx-auto mb-1 md:mb-2 opacity-20 group-hover:opacity-100 transition-opacity" />
                           <span className="text-sm md:text-base">{format(slot.start, 'HH:mm')}</span>
@@ -574,7 +574,7 @@ export default function PublicBooking() {
               exit={{ opacity: 0, x: -20 }}
               className="max-w-xl mx-auto"
             >
-              <div className="bg-white rounded-2xl p-6 md:p-10 shadow-xl border border-zinc-100">
+              <div className="bg-white rounded-xl p-6 md:p-10 shadow-xl border border-zinc-100">
                 <button
                   onClick={() => setStep('date')}
                   className="flex items-center gap-2 text-zinc-400 hover:text-zinc-900 transition-colors mb-6 md:mb-8 text-sm font-medium"
@@ -583,7 +583,7 @@ export default function PublicBooking() {
                   Alterar data ou horário
                 </button>
 
-                <div className="flex items-center gap-4 mb-8 md:mb-10 p-4 bg-zinc-50 rounded-xl border border-zinc-100">
+                <div className="flex items-center gap-4 mb-8 md:mb-10 p-4 bg-zinc-50 rounded-lg border border-zinc-100">
                   <div className="w-10 h-10 md:w-12 md:h-12 bg-primary rounded-lg flex items-center justify-center text-white flex-shrink-0">
                     <Clock className="w-5 h-5 md:w-6 md:h-6" />
                   </div>
@@ -605,7 +605,7 @@ export default function PublicBooking() {
                         required
                         value={formData.service}
                         onChange={(e) => setFormData({ ...formData, service: e.target.value })}
-                        className="w-full bg-zinc-50 border border-zinc-100 rounded-xl py-4 px-4 focus:ring-2 focus:ring-primary transition-all appearance-none text-zinc-900"
+                        className="w-full bg-zinc-50 border border-zinc-100 rounded-lg py-4 px-4 focus:ring-2 focus:ring-primary transition-all appearance-none text-zinc-900"
                       >
                         <option value="">Selecione um serviço</option>
                         {business.services.map((service) => (
@@ -624,7 +624,7 @@ export default function PublicBooking() {
                         required
                         value={formData.name}
                         onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                        className="w-full bg-zinc-50 border border-zinc-100 rounded-xl py-4 pl-12 pr-4 focus:ring-2 focus:ring-primary transition-all text-zinc-900"
+                        className="w-full bg-zinc-50 border border-zinc-100 rounded-lg py-4 pl-12 pr-4 focus:ring-2 focus:ring-primary transition-all text-zinc-900"
                         placeholder="Nome completo"
                       />
                     </div>
@@ -639,7 +639,7 @@ export default function PublicBooking() {
                         required
                         value={formData.phone}
                         onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                        className="w-full bg-zinc-50 border border-zinc-100 rounded-xl py-4 pl-12 pr-4 focus:ring-2 focus:ring-primary transition-all text-zinc-900"
+                        className="w-full bg-zinc-50 border border-zinc-100 rounded-lg py-4 pl-12 pr-4 focus:ring-2 focus:ring-primary transition-all text-zinc-900"
                         placeholder="(00) 00000-0000"
                       />
                     </div>
@@ -650,7 +650,7 @@ export default function PublicBooking() {
                     <textarea
                       value={formData.notes}
                       onChange={(e) => setFormData({ ...formData, notes: e.target.value })}
-                      className="w-full bg-zinc-50 border border-zinc-100 rounded-xl py-4 px-4 focus:ring-2 focus:ring-primary transition-all min-h-[100px] text-zinc-900"
+                      className="w-full bg-zinc-50 border border-zinc-100 rounded-lg py-4 px-4 focus:ring-2 focus:ring-primary transition-all min-h-[100px] text-zinc-900"
                       placeholder="Alguma informação adicional?"
                     />
                   </div>
@@ -658,7 +658,7 @@ export default function PublicBooking() {
                   <button
                     type="submit"
                     disabled={booking}
-                    className="w-full bg-primary text-white py-5 rounded-xl font-sans font-semibold hover:bg-zinc-800 transition-all shadow-lg flex items-center justify-center gap-2 disabled:opacity-70"
+                    className="w-full bg-primary text-white py-5 rounded-lg font-sans font-semibold hover:bg-zinc-800 transition-all shadow-lg flex items-center justify-center gap-2 disabled:opacity-70"
                   >
                     {booking ? <Loader2 className="w-5 h-5 animate-spin" /> : (
                       reschedulingAppointment ? 'Confirmar Novo Horário' : 'Confirmar Agendamento'
@@ -676,8 +676,8 @@ export default function PublicBooking() {
               animate={{ opacity: 1, scale: 1 }}
               className="max-w-md mx-auto text-center"
             >
-              <div className="bg-white rounded-2xl p-8 md:p-12 shadow-2xl border border-zinc-100">
-                <div className="w-20 h-20 md:w-24 md:h-24 bg-emerald-50 rounded-xl flex items-center justify-center mx-auto mb-6 md:mb-8">
+              <div className="bg-white rounded-xl p-8 md:p-12 shadow-2xl border border-zinc-100">
+                <div className="w-20 h-20 md:w-24 md:h-24 bg-emerald-50 rounded-lg flex items-center justify-center mx-auto mb-6 md:mb-8">
                   <CheckCircle2 className="w-10 h-10 md:w-12 md:h-12 text-emerald-500" />
                 </div>
                 <h2 className="text-2xl md:text-3xl font-display font-bold text-zinc-900 mb-4">
@@ -689,7 +689,7 @@ export default function PublicBooking() {
                     : `Seu agendamento para ${business.name} foi confirmado com sucesso.`
                   }
                 </p>
-                <div className="bg-zinc-50 p-6 rounded-xl mb-8 text-left border border-zinc-100">
+                <div className="bg-zinc-50 p-6 rounded-lg mb-8 text-left border border-zinc-100">
                   <p className="text-[10px] font-sans font-medium uppercase tracking-widest text-zinc-400 mb-2">Resumo</p>
                   <p className="font-semibold text-sm md:text-base text-zinc-900">{format(selectedSlot!.start, "EEEE, d 'de' MMMM", { locale: ptBR })}</p>
                   <p className="text-xl md:text-2xl font-display font-bold text-primary">{format(selectedSlot!.start, "HH:mm")}</p>

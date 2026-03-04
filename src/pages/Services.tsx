@@ -97,10 +97,10 @@ export default function Services({ session }: { session: Session }) {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="bg-white rounded-xl p-6 md:p-10 shadow-sm border border-zinc-200"
+            className="bg-white rounded-lg p-6 md:p-10 shadow-sm border border-zinc-200"
           >
             <div className="flex items-center gap-4 mb-8 md:mb-10">
-              <div className="w-12 h-12 bg-primary/5 rounded-xl flex items-center justify-center flex-shrink-0">
+              <div className="w-12 h-12 bg-primary/5 rounded-lg flex items-center justify-center flex-shrink-0">
                 <Briefcase className="w-6 h-6 text-primary" />
               </div>
               <div>
@@ -120,14 +120,14 @@ export default function Services({ session }: { session: Session }) {
                       value={newService}
                       onChange={(e) => setNewService(e.target.value)}
                       onKeyPress={(e) => e.key === 'Enter' && (e.preventDefault(), addService())}
-                      className="w-full bg-zinc-50 border border-zinc-200 rounded-xl py-4 pl-12 pr-4 focus:ring-2 focus:ring-primary transition-all"
+                      className="w-full bg-zinc-50 border border-zinc-200 rounded-lg py-4 pl-12 pr-4 focus:ring-2 focus:ring-primary transition-all"
                       placeholder="Ex: Corte de Cabelo"
                     />
                   </div>
                   <button
                     type="button"
                     onClick={addService}
-                    className="bg-primary text-white p-4 rounded-xl hover:bg-zinc-800 transition-all shadow-md"
+                    className="bg-primary text-white p-4 rounded-lg hover:bg-zinc-800 transition-all shadow-md"
                   >
                     <Plus className="w-6 h-6" />
                   </button>
@@ -139,7 +139,7 @@ export default function Services({ session }: { session: Session }) {
                     {(business.services || []).map((service) => (
                       <div
                         key={service}
-                        className="flex items-center gap-2 bg-zinc-50 px-4 py-3 rounded-xl group transition-all hover:bg-zinc-100 border border-zinc-200"
+                        className="flex items-center gap-2 bg-zinc-50 px-4 py-3 rounded-lg group transition-all hover:bg-zinc-100 border border-zinc-200"
                       >
                         <span className="font-sans font-semibold">{service}</span>
                         <button
@@ -152,7 +152,7 @@ export default function Services({ session }: { session: Session }) {
                       </div>
                     ))}
                     {(!business.services || business.services.length === 0) && (
-                      <div className="w-full text-center py-12 bg-zinc-50/50 rounded-xl border border-dashed border-zinc-200">
+                      <div className="w-full text-center py-12 bg-zinc-50/50 rounded-lg border border-dashed border-zinc-200">
                         <p className="text-sm text-zinc-400 italic">Nenhum serviço adicionado ainda.</p>
                       </div>
                     )}
@@ -161,7 +161,7 @@ export default function Services({ session }: { session: Session }) {
               </div>
 
               {error && (
-                <p className="text-red-500 text-sm text-center bg-red-50 p-4 rounded-2xl border border-red-100">
+                <p className="text-red-500 text-sm text-center bg-red-50 p-4 rounded-xl border border-red-100">
                   {error}
                 </p>
               )}
@@ -169,7 +169,7 @@ export default function Services({ session }: { session: Session }) {
               <button
                 onClick={handleSave}
                 disabled={saving}
-                className="w-full bg-primary text-white py-4 rounded-xl font-sans font-semibold hover:bg-zinc-800 transition-all shadow-md flex items-center justify-center gap-2 disabled:opacity-70"
+                className="w-full bg-primary text-white py-4 rounded-lg font-sans font-semibold hover:bg-zinc-800 transition-all shadow-md flex items-center justify-center gap-2 disabled:opacity-70"
               >
                 {saving ? <Loader2 className="w-5 h-5 animate-spin" /> : <><Save className="w-5 h-5" /> Salvar Alterações</>}
               </button>

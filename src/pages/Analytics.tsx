@@ -13,7 +13,7 @@ import {
     Calendar as CalendarIcon
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import { format, parseISO } from 'date-fns';
+import { format, parseISO, subDays, isWithinInterval, startOfDay, endOfDay, eachDayOfInterval } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
 import Sidebar from '../components/Sidebar';
 import { cn } from '../lib/utils';
@@ -22,6 +22,10 @@ export default function Analytics({ session }: { session: Session }) {
     const [business, setBusiness] = useState<Business | null>(null);
     const [appointments, setAppointments] = useState<Appointment[]>([]);
     const [loading, setLoading] = useState(true);
+    const [dateRange, setDateRange] = useState({
+        from: subDays(new Date(), 30),
+        to: new Date()
+    });
 
     useEffect(() => {
         async function loadData() {
@@ -64,9 +68,17 @@ export default function Analytics({ session }: { session: Session }) {
 
     const activeApps = appointments.filter(app => app.status !== 'cancelled');
 
+    const filteredApps = activeApps.filter(app => {
+        const appDate = parseISO(app.start_time);
+        return isWithinInterval(appDate, {
+            start: startOfDay(dateRange.from),
+            end: endOfDay(dateRange.to)
+        });
+    });
+
     // Calcular dia de pico
     const dayCounts: Record<string, number> = {};
-    activeApps.forEach(app => {
+    filteredApps.forEach(app => {
         const day = format(parseISO(app.start_time), 'EEEE', { locale: ptBR });
         dayCounts[day] = (dayCounts[day] || 0) + 1;
     });
@@ -74,7 +86,7 @@ export default function Analytics({ session }: { session: Session }) {
 
     // Calcular horário de pico
     const hourCounts: Record<string, number> = {};
-    activeApps.forEach(app => {
+    filteredApps.forEach(app => {
         const hour = format(parseISO(app.start_time), 'HH:00');
         hourCounts[hour] = (hourCounts[hour] || 0) + 1;
     });
@@ -85,6 +97,22 @@ export default function Analytics({ session }: { session: Session }) {
         return hourCounts[hour] || 0;
     });
     const maxVal = Math.max(...chartData, 1);
+
+    // Calcular tendência temporal
+    const trendCounts: Record<string, number> = {};
+    filteredApps.forEach(app => {
+        const day = format(parseISO(app.start_time), 'dd/MM');
+        trendCounts[day] = (trendCounts[day] || 0) + 1;
+    });
+    const daysInRange = eachDayOfInterval({ start: dateRange.from, end: dateRange.to });
+    const trendData = daysInRange.map(day => {
+        const formatDay = format(day, 'dd/MM');
+        return {
+            label: formatDay,
+            value: trendCounts[formatDay] || 0
+        };
+    });
+    const maxTrendVal = Math.max(...trendData.map(d => d.value), 1);
 
     return (
         <div className="min-h-screen flex flex-col md:flex-row transition-all duration-300 bg-zinc-50/50">
@@ -101,7 +129,7 @@ export default function Analytics({ session }: { session: Session }) {
                 </header>
 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-                    <div className="bg-white p-6 rounded-xl border border-zinc-200 shadow-sm">
+                    <div className="bg-white p-6 rounded-lg border border-zinc-200 shadow-sm">
                         <div className="flex items-center justify-between mb-4">
                             <div className="w-10 h-10 bg-blue-50 rounded-lg flex items-center justify-center">
                                 <Users className="w-5 h-5 text-blue-600" />
@@ -111,7 +139,7 @@ export default function Analytics({ session }: { session: Session }) {
                         <h3 className="text-2xl font-display font-bold text-zinc-900 mt-1">{appointments.length}</h3>
                     </div>
 
-                    <div className="bg-white p-6 rounded-xl border border-zinc-200 shadow-sm">
+                    <div className="bg-white p-6 rounded-lg border border-zinc-200 shadow-sm">
                         <div className="flex items-center justify-between mb-4">
                             <div className="w-10 h-10 bg-emerald-50 rounded-lg flex items-center justify-center">
                                 <Clock className="w-5 h-5 text-emerald-600" />
@@ -121,7 +149,7 @@ export default function Analytics({ session }: { session: Session }) {
                         <h3 className="text-2xl font-display font-bold text-zinc-900 mt-1">{activeApps.length}</h3>
                     </div>
 
-                    <div className="bg-white p-6 rounded-xl border border-zinc-200 shadow-sm">
+                    <div className="bg-white p-6 rounded-lg border border-zinc-200 shadow-sm">
                         <div className="flex items-center justify-between mb-4">
                             <div className="w-10 h-10 bg-amber-50 rounded-lg flex items-center justify-center">
                                 <Activity className="w-5 h-5 text-amber-600" />
@@ -134,16 +162,32 @@ export default function Analytics({ session }: { session: Session }) {
                     </div>
                 </div>
 
-                <div className="bg-white p-8 rounded-2xl border border-zinc-200 shadow-sm overflow-hidden relative group">
-                    <div className="flex items-center justify-between mb-8">
+                <div className="bg-white p-8 rounded-xl border border-zinc-200 shadow-sm overflow-hidden relative group">
+                    <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
                         <div className="flex items-center gap-3">
-                            <div className="w-10 h-10 bg-indigo-50 rounded-xl flex items-center justify-center">
+                            <div className="w-10 h-10 bg-indigo-50 rounded-lg flex items-center justify-center">
                                 <TrendingUp className="w-5 h-5 text-indigo-600" />
                             </div>
                             <div>
                                 <h3 className="text-xl font-sans font-semibold text-zinc-900">Desempenho Operacional</h3>
-                                <p className="text-sm text-zinc-400">Visão geral do seu negócio</p>
+                                <p className="text-sm text-zinc-400">Visão geral do seu negócio no período</p>
                             </div>
+                        </div>
+                        <div className="flex items-center gap-2 bg-zinc-50 border border-zinc-200 p-2 rounded-lg">
+                            <CalendarIcon className="w-4 h-4 text-zinc-500" />
+                            <input
+                                type="date"
+                                className="bg-transparent border-none text-sm font-medium text-zinc-700 focus:outline-none"
+                                value={format(dateRange.from, 'yyyy-MM-dd')}
+                                onChange={(e) => setDateRange(prev => ({ ...prev, from: parseISO(e.target.value) || prev.from }))}
+                            />
+                            <span className="text-zinc-400">→</span>
+                            <input
+                                type="date"
+                                className="bg-transparent border-none text-sm font-medium text-zinc-700 focus:outline-none"
+                                value={format(dateRange.to, 'yyyy-MM-dd')}
+                                onChange={(e) => setDateRange(prev => ({ ...prev, to: parseISO(e.target.value) || prev.to }))}
+                            />
                         </div>
                     </div>
 
@@ -151,7 +195,7 @@ export default function Analytics({ session }: { session: Session }) {
                         <div className="space-y-1">
                             <p className="text-[10px] font-sans font-medium uppercase tracking-widest text-zinc-400">Total Ativos</p>
                             <div className="flex items-baseline gap-2">
-                                <span className="text-3xl font-display font-bold text-zinc-900">{activeApps.length}</span>
+                                <span className="text-3xl font-display font-bold text-zinc-900">{filteredApps.length}</span>
                                 <span className="text-xs font-semibold text-emerald-500 flex items-center gap-0.5">
                                     <TrendingUp className="w-3 h-3" /> 12%
                                 </span>
@@ -178,7 +222,7 @@ export default function Analytics({ session }: { session: Session }) {
                             {chartData.map((val, i) => (
                                 <div
                                     key={i}
-                                    className="flex-1 bg-indigo-50 rounded-t-lg relative group/bar hover:bg-indigo-100 transition-colors"
+                                    className="flex-1 bg-primary/40 rounded-t-sm relative group/bar hover:bg-primary transition-colors"
                                     style={{ height: `${(val / maxVal) * 100}%` }}
                                 >
                                     <div className="absolute -top-8 left-1/2 -translate-x-1/2 bg-zinc-900 text-white text-[10px] py-1 px-2 rounded opacity-0 group-hover/bar:opacity-100 transition-opacity whitespace-nowrap pointer-events-none z-20">
@@ -195,6 +239,33 @@ export default function Analytics({ session }: { session: Session }) {
                             <span>16:00</span>
                             <span>18:00</span>
                             <span>20:00</span>
+                        </div>
+                    </div>
+
+                    <div className="relative pt-10 border-t border-zinc-50 mt-10">
+                        <div className="flex items-center justify-between mb-4">
+                            <h4 className="text-xs font-sans font-bold text-zinc-900 uppercase tracking-widest flex items-center gap-2">
+                                <Activity className="w-3 h-3 text-emerald-400" />
+                                Evolução de Agendamentos (Por Dia)
+                            </h4>
+                        </div>
+                        <div className="h-48 w-full flex items-end gap-1 px-2">
+                            {trendData.map((d, i) => (
+                                <div
+                                    key={i}
+                                    className="flex-1 bg-primary/40 rounded-t-sm relative group/bar hover:bg-primary transition-colors"
+                                    style={{ height: `${(d.value / maxTrendVal) * 100}%` }}
+                                >
+                                    <div className="absolute -top-8 left-1/2 -translate-x-1/2 bg-zinc-900 text-white text-[10px] py-1 px-2 rounded opacity-0 group-hover/bar:opacity-100 transition-opacity whitespace-nowrap pointer-events-none z-20">
+                                        {d.value} agend. em {d.label}
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                        <div className="flex justify-between mt-4 text-[10px] font-sans font-medium text-zinc-400 px-1 overflow-hidden">
+                            <span>{trendData[0]?.label}</span>
+                            <span>{trendData[Math.floor(trendData.length / 2)]?.label}</span>
+                            <span>{trendData[trendData.length - 1]?.label}</span>
                         </div>
                     </div>
                 </div>
