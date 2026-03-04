@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Calendar, Clock, Shield, ArrowRight, Star, Check, Quote, Zap } from 'lucide-react';
-import { motion } from 'motion';
+import { motion } from 'motion/react';
 import { format } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
 import { cn } from '../lib/utils';
@@ -116,7 +116,38 @@ export default function LandingPage() {
                 </div>
               </Link>
             </div>
-            <div className="flex justify-center lg:justify-start mt-10">
+
+            {/* Social Proof inside Hero */}
+            <div className="flex items-center justify-center lg:justify-start gap-2 mt-10">
+              <div className="flex -space-x-3 overflow-hidden">
+                {[1, 2, 3, 4].map((i) => (
+                  <motion.div
+                    key={i}
+                    animate={{
+                      scale: [1, 1.1, 1],
+                      opacity: [0.7, 1, 0.7]
+                    }}
+                    transition={{
+                      duration: 3,
+                      repeat: Infinity,
+                      delay: i * 0.5
+                    }}
+                    className="inline-block h-8 w-8 rounded-full ring-2 ring-white bg-zinc-200 flex items-center justify-center text-[10px] font-bold text-zinc-500 overflow-hidden"
+                  >
+                    <img
+                      src={`https://i.pravatar.cc/100?u=${i + 10}`}
+                      alt="User"
+                      className="w-full h-full object-cover"
+                    />
+                  </motion.div>
+                ))}
+              </div>
+              <p className="text-zinc-900 font-sans font-bold text-sm">
+                +1.000 profissionais usando hoje
+              </p>
+            </div>
+
+            <div className="flex justify-center lg:justify-start mt-6 opacity-60">
               <CompanyLogos />
             </div>
           </motion.div>
@@ -203,35 +234,7 @@ export default function LandingPage() {
           <div className="text-center mb-16">
             <p className="text-xs font-bold text-zinc-400 uppercase tracking-widest mb-4">Usado por profissionais de todo o Brasil</p>
             <h2 className="text-4xl font-display font-bold text-zinc-900 mb-4">Quem usa, recomenda</h2>
-            <div className="flex items-center justify-center gap-2 mb-4">
-              <div className="flex -space-x-3 overflow-hidden">
-                {[1, 2, 3, 4].map((i) => (
-                  <motion.div
-                    key={i}
-                    animate={{
-                      scale: [1, 1.1, 1],
-                      opacity: [0.7, 1, 0.7]
-                    }}
-                    transition={{
-                      duration: 3,
-                      repeat: Infinity,
-                      delay: i * 0.5
-                    }}
-                    className="inline-block h-10 w-10 rounded-full ring-2 ring-white bg-zinc-200 flex items-center justify-center text-[10px] font-bold text-zinc-500 overflow-hidden"
-                  >
-                    <img
-                      src={`https://i.pravatar.cc/100?u=${i + 10}`}
-                      alt="User"
-                      className="w-full h-full object-cover"
-                    />
-                  </motion.div>
-                ))}
-              </div>
-              <p className="text-zinc-900 font-sans font-bold text-sm">
-                +1.000 profissionais usando hoje
-              </p>
-            </div>
-            <p className="text-zinc-500 font-medium">Resultados reais de quem já transformou sua agenda.</p>
+            <p className="text-zinc-500 font-medium">Resultados reais de quem já transformou sua agenda com o Agendai.</p>
           </div>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {testimonials.map((t, i) => (
@@ -274,7 +277,7 @@ export default function LandingPage() {
           <div className="max-w-md mx-auto">
             <motion.div
               whileHover={{ scale: 1.01 }}
-              className="bg-gradient-to-br from-zinc-900 via-zinc-900 to-zinc-800 p-8 md:p-10 rounded-[32px] shadow-2xl shadow-primary/20 flex flex-col relative overflow-hidden border border-white/5 min-h-[500px]"
+              className="bg-gradient-to-br from-zinc-900 to-zinc-950 p-6 md:p-8 rounded-[32px] shadow-2xl shadow-primary/10 flex flex-col relative overflow-hidden border border-white/5 min-h-[420px]"
             >
               <div className="absolute top-0 right-0 w-64 h-64 bg-primary/20 rounded-full blur-[100px] animate-pulse"></div>
               <div className="absolute bottom-0 left-0 w-40 h-40 bg-primary/10 rounded-full blur-[80px]"></div>
