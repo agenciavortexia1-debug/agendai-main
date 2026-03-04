@@ -7,9 +7,28 @@ import { Link, useNavigate } from 'react-router-dom';
 export default function ResetPassword() {
     const [password, setPassword] = useState('');
     const [loading, setLoading] = useState(false);
+    const [authLoading, setAuthLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
     const [success, setSuccess] = useState(false);
     const navigate = useNavigate();
+
+    React.useEffect(() => {
+        // Verifica se o usuário tem uma sessão (o Supabase já deve ter processado o link de recuperação)
+        supabase.auth.getSession().then(({ data: { session } }) => {
+            if (!session) {
+                setError('Link de recuperação inválido ou expirado. Por favor, solicite um novo.');
+            }
+            setAuthLoading(false);
+        });
+    }, []);
+
+    if (authLoading) {
+        return (
+            <div className="min-h-screen flex items-center justify-center bg-zinc-50">
+                <Loader2 className="w-8 h-8 animate-spin text-zinc-300" />
+            </div>
+        );
+    }
 
     const handleReset = async (e: React.FormEvent) => {
         e.preventDefault();
