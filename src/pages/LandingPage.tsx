@@ -103,7 +103,7 @@ export default function LandingPage() {
             </p>
             <div className="flex flex-col sm:flex-row gap-4 lg:gap-6 justify-center lg:justify-start">
               <Link to="/checkout" className="bg-zinc-900 text-white px-8 lg:px-10 py-4 lg:py-5 rounded-xl text-base lg:text-lg font-sans font-semibold hover:bg-zinc-800 transition-all flex items-center justify-center gap-3 group shadow-2xl shadow-zinc-200">
-                Assinar Pro por R$ 47,00/mês
+                Assinar Pro por R$ 39,90/mês
                 <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
               </Link>
             </div>
@@ -235,7 +235,7 @@ export default function LandingPage() {
                   Plano Pro
                 </span>
                 <div className="flex items-baseline gap-2 mt-6 mb-2">
-                  <h3 className="text-5xl font-display font-bold text-white">R$ 47,00</h3>
+                  <h3 className="text-5xl font-display font-bold text-white">R$ 39,90</h3>
                   <span className="text-zinc-500 text-lg">/mês</span>
                 </div>
                 <p className="text-zinc-400 text-sm mb-10">O plano definitivo para profissionais que buscam excelência.</p>

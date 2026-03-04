@@ -317,7 +317,15 @@ export default function PublicBooking() {
 
       if (updatedApps) setUserAppointments(updatedApps);
 
-      setStep('success');
+      setStep('date');
+      setReschedulingAppointment(null);
+      setSelectedSlot(null);
+
+      // Scroll to my appointments section
+      setTimeout(() => {
+        const el = document.getElementById('my-appointments');
+        if (el) el.scrollIntoView({ behavior: 'smooth' });
+      }, 300);
     } catch (err: any) {
       alert('Erro ao realizar agendamento: ' + err.message);
     } finally {
@@ -398,6 +406,7 @@ export default function PublicBooking() {
             <div className="space-y-12">
               {/* User Appointments Section */}
               <motion.div
+                id="my-appointments"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 className="bg-white p-6 md:p-8 rounded-2xl shadow-xl border border-zinc-100"

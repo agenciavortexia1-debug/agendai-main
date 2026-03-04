@@ -87,13 +87,7 @@ export default function ClientBookingAuth({ onSuccess, onBack, initialEmail = ''
       animate={{ opacity: 1, y: 0 }}
       className="bg-white rounded-[32px] p-6 md:p-10 shadow-xl border border-black/5"
     >
-      <button
-        onClick={onBack}
-        className="flex items-center gap-2 text-black/40 hover:text-black transition-colors mb-6 md:mb-8 text-sm font-medium"
-      >
-        <ChevronLeft className="w-4 h-4" />
-        Voltar para horários
-      </button>
+
 
       <div className="text-center mb-8">
         <h2 className="text-2xl font-sans font-semibold mb-2">
