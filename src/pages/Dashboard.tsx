@@ -127,7 +127,8 @@ export default function Dashboard({ session }: { session: Session }) {
     );
   }
 
-  const isSubscriptionActive = business.subscription_status === 'active';
+  const isSubscriptionActive = ['active', 'trialing'].includes(business.subscription_status || '');
+  const isSubscriptionProblematic = ['canceled', 'past_due', 'incomplete_expired'].includes(business.subscription_status || '');
 
   const handleCheckout = async () => {
     setCheckoutLoading(true);
@@ -197,7 +198,7 @@ export default function Dashboard({ session }: { session: Session }) {
           </motion.div>
         )}
 
-        {!isSubscriptionActive && (
+        {isSubscriptionProblematic && (
           <div className="mb-10 bg-amber-50 border border-amber-200 rounded-2xl p-6 flex flex-col md:flex-row items-center justify-between gap-6 shadow-sm">
             <div className="flex items-center gap-4 text-center md:text-left">
               <div className="w-12 h-12 bg-amber-100 rounded-xl flex items-center justify-center flex-shrink-0">
@@ -218,7 +219,7 @@ export default function Dashboard({ session }: { session: Session }) {
           </div>
         )}
 
-        <div className={cn("grid grid-cols-1 lg:grid-cols-3 gap-8", !isSubscriptionActive && "opacity-50 pointer-events-none")}>
+        <div className={cn("grid grid-cols-1 lg:grid-cols-3 gap-8", isSubscriptionProblematic && "opacity-50 pointer-events-none")}>
           {/* Stats & List */}
           <div className="lg:col-span-2 space-y-8">
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">

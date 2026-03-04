@@ -55,12 +55,12 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         }
 
         // --- Fluxo 2: Usuario novo (sem login) ---
-        // O Stripe coleta o e-mail durante o checkout.
+        // O Stripe coleta o e-mail durante o checkout automaticamente.
         // Apos o pagamento, redireciona para /auth?signup=true para criar a conta.
         const session = await stripe.checkout.sessions.create({
             line_items: [{ price: process.env.STRIPE_PRICE_ID, quantity: 1 }],
             mode: 'subscription',
-            customer_creation: 'always',
+            billing_address_collection: 'auto',
             success_url: `${origin}/auth?signup=true&session_id={CHECKOUT_SESSION_ID}`,
             cancel_url: `${origin}/?canceled=true`,
         });
