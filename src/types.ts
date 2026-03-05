@@ -10,6 +10,8 @@ export type Business = {
   text_color: string | null;
   appointment_duration_minutes: number;
   services: string[] | null;
+  subscription_status?: string;
+  stripe_customer_id?: string;
   created_at: string;
 };
 
@@ -20,6 +22,9 @@ export type BusinessHour = {
   open_time: string; // HH:mm
   close_time: string; // HH:mm
   is_closed: boolean;
+  has_break: boolean;
+  break_start: string | null; // HH:mm
+  break_end: string | null;   // HH:mm
 };
 
 export type BlockedTime = {
