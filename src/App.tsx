@@ -12,6 +12,7 @@ import BusinessSettings from './pages/BusinessSettings';
 import BusinessHours from './pages/BusinessHours';
 import Personalization from './pages/Personalization';
 import Services from './pages/Services';
+import Staff from './pages/Staff';
 import ClientPortal from './pages/ClientPortal';
 import CheckoutPage from './pages/CheckoutPage';
 import ResetPassword from './pages/ResetPassword';
@@ -98,6 +99,10 @@ export default function App() {
         <Route
           path="/dashboard/services"
           element={session ? <Services session={session} /> : <Navigate to="/auth" />}
+        />
+        <Route
+          path="/dashboard/staff"
+          element={session ? <Staff session={session} /> : <Navigate to="/auth" />}
         />
 
         {/* Public Booking Route */}

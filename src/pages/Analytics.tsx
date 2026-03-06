@@ -10,7 +10,9 @@ import {
     ArrowLeft,
     Users,
     Clock,
-    Calendar as CalendarIcon
+    Calendar as CalendarIcon,
+    Award,
+    Scissors
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { format, parseISO, subDays, isWithinInterval, startOfDay, endOfDay, eachDayOfInterval } from 'date-fns';
@@ -40,7 +42,11 @@ export default function Analytics({ session }: { session: Session }) {
                     setBusiness(businessData);
                     const { data: appData } = await supabase
                         .from('appointments')
-                        .select('*')
+                        .select(`
+                            *,
+                            service:services (name, price),
+                            professional:professionals (name)
+                        `)
                         .eq('business_id', businessData.id)
                         .order('start_time', { ascending: true });
 
@@ -125,6 +131,51 @@ export default function Analytics({ session }: { session: Session }) {
     });
     const maxTrendVal = Math.max(...trendData.map(d => d.value), 1);
 
+    // Performance de Colaboradores
+    const professionalCounts: Record<string, number> = {};
+    filteredApps.forEach(app => {
+        if (app.professional?.name) {
+            professionalCounts[app.professional.name] = (professionalCounts[app.professional.name] || 0) + 1;
+        }
+    });
+    const professionalData = Object.entries(professionalCounts)
+        .sort((a, b) => b[1] - a[1]) // Descending
+        .slice(0, 5) // Top 5
+        .map(([name, count]) => ({ name, count }));
+    const maxProfVal = Math.max(...professionalData.map(d => d.count), 1);
+
+    // Serviços mais realizados
+    const serviceCounts: Record<string, number> = {};
+    filteredApps.forEach(app => {
+        if (app.service?.name) {
+            serviceCounts[app.service.name] = (serviceCounts[app.service.name] || 0) + 1;
+        }
+    });
+    const serviceData = Object.entries(serviceCounts)
+        .sort((a, b) => b[1] - a[1]) // Descending
+        .slice(0, 5) // Top 5
+        .map(([name, count]) => ({ name, count }));
+    const maxServiceVal = Math.max(...serviceData.map(d => d.count), 1);
+
+    // Taxa de Comparecimento vs Falta
+    let attendedCount = 0;
+    let missedCount = 0;
+    filteredApps.forEach(app => {
+        if (app.attended === true) attendedCount++;
+        if (app.attended === false) missedCount++;
+    });
+    const totalAttendanceTracked = attendedCount + missedCount;
+    const attendanceRate = totalAttendanceTracked > 0 ? Math.round((attendedCount / totalAttendanceTracked) * 100) : 0;
+    const missingRate = totalAttendanceTracked > 0 ? Math.round((missedCount / totalAttendanceTracked) * 100) : 0;
+
+    // Faturamento Total no Período
+    const totalRevenue = filteredApps.reduce((acc, app) => {
+        if (app.attended === true && app.final_price) {
+            return acc + Number(app.final_price);
+        }
+        return acc;
+    }, 0);
+
     return (
         <div className="min-h-screen flex flex-col md:flex-row transition-all duration-300 bg-zinc-50/50">
             <Sidebar />
@@ -167,7 +218,22 @@ export default function Analytics({ session }: { session: Session }) {
                 </header>
 
                 {/* KPI Cards — todos respondem ao filtro de data */}
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+                    <motion.div
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.05 }}
+                        className="bg-white p-5 rounded-lg border border-zinc-200 shadow-sm"
+                    >
+                        <div className="w-10 h-10 bg-emerald-50 rounded-lg flex items-center justify-center mb-3">
+                            <span className="text-emerald-600 font-bold">R$</span>
+                        </div>
+                        <p className="text-zinc-400 text-[10px] font-sans font-medium uppercase tracking-widest">Faturamento Período</p>
+                        <h3 className="text-2xl font-display font-bold text-zinc-900 mt-1">
+                            R$ {totalRevenue.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}
+                        </h3>
+                    </motion.div>
+
                     <motion.div
                         initial={{ opacity: 0, y: 10 }}
                         animate={{ opacity: 1, y: 0 }}
@@ -177,7 +243,7 @@ export default function Analytics({ session }: { session: Session }) {
                         <div className="w-10 h-10 bg-blue-50 rounded-lg flex items-center justify-center mb-3">
                             <Users className="w-5 h-5 text-blue-600" />
                         </div>
-                        <p className="text-zinc-400 text-[10px] font-sans font-medium uppercase tracking-widest">Total no Período</p>
+                        <p className="text-zinc-400 text-[10px] font-sans font-medium uppercase tracking-widest">Total Agendados</p>
                         <h3 className="text-2xl font-display font-bold text-zinc-900 mt-1">{allFilteredApps.length}</h3>
                     </motion.div>
 
@@ -187,10 +253,10 @@ export default function Analytics({ session }: { session: Session }) {
                         transition={{ delay: 0.1 }}
                         className="bg-white p-5 rounded-lg border border-zinc-200 shadow-sm"
                     >
-                        <div className="w-10 h-10 bg-emerald-50 rounded-lg flex items-center justify-center mb-3">
-                            <Clock className="w-5 h-5 text-emerald-600" />
+                        <div className="w-10 h-10 bg-indigo-50 rounded-lg flex items-center justify-center mb-3">
+                            <Clock className="w-5 h-5 text-indigo-600" />
                         </div>
-                        <p className="text-zinc-400 text-[10px] font-sans font-medium uppercase tracking-widest">Agendamentos Ativos</p>
+                        <p className="text-zinc-400 text-[10px] font-sans font-medium uppercase tracking-widest">Agendamentos Úteis</p>
                         <h3 className="text-2xl font-display font-bold text-zinc-900 mt-1">{filteredApps.length}</h3>
                     </motion.div>
 
@@ -203,8 +269,8 @@ export default function Analytics({ session }: { session: Session }) {
                         <div className="w-10 h-10 bg-amber-50 rounded-lg flex items-center justify-center mb-3">
                             <Activity className="w-5 h-5 text-amber-600" />
                         </div>
-                        <p className="text-zinc-400 text-[10px] font-sans font-medium uppercase tracking-widest">Taxa de Ocupação</p>
-                        <h3 className="text-2xl font-display font-bold text-zinc-900 mt-1">{occupancyRate}%</h3>
+                        <p className="text-zinc-400 text-[10px] font-sans font-medium uppercase tracking-widest">Taxa de Conclusão</p>
+                        <h3 className="text-2xl font-display font-bold text-zinc-900 mt-1">{attendanceRate}%</h3>
                     </motion.div>
                 </div>
 
@@ -296,6 +362,73 @@ export default function Analytics({ session }: { session: Session }) {
                             <span>{trendData[0]?.label}</span>
                             <span>{trendData[Math.floor(trendData.length / 2)]?.label}</span>
                             <span>{trendData[trendData.length - 1]?.label}</span>
+                        </div>
+                    </div>
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mt-8">
+                        {/* Performance de Colaboradores */}
+                        <div className="bg-white p-5 md:p-6 rounded-xl border border-zinc-200 shadow-sm">
+                            <h4 className="text-sm font-sans font-bold text-zinc-900 uppercase tracking-widest flex items-center gap-2 mb-6">
+                                <Award className="w-4 h-4 text-amber-500" />
+                                Top Colaboradores (Qtd)
+                            </h4>
+                            {professionalData.length === 0 ? (
+                                <p className="text-sm text-zinc-400 italic text-center py-6">Nenhum dado no período.</p>
+                            ) : (
+                                <div className="space-y-4">
+                                    {professionalData.map((prof, i) => (
+                                        <div key={i} className="flex items-center gap-3">
+                                            <div className="w-8 flex-shrink-0 text-center text-xs font-bold text-zinc-400">
+                                                #{i + 1}
+                                            </div>
+                                            <div className="flex-1">
+                                                <div className="flex justify-between items-end mb-1">
+                                                    <span className="text-sm font-semibold text-zinc-800 truncate block max-w-[150px]">{prof.name}</span>
+                                                    <span className="text-xs font-bold text-zinc-500">{prof.count}</span>
+                                                </div>
+                                                <div className="w-full bg-zinc-100 rounded-full h-2">
+                                                    <div
+                                                        className="bg-amber-400 h-2 rounded-full"
+                                                        style={{ width: `${(prof.count / maxProfVal) * 100}%` }}
+                                                    ></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    ))}
+                                </div>
+                            )}
+                        </div>
+
+                        {/* Serviços Mais Realizados */}
+                        <div className="bg-white p-5 md:p-6 rounded-xl border border-zinc-200 shadow-sm">
+                            <h4 className="text-sm font-sans font-bold text-zinc-900 uppercase tracking-widest flex items-center gap-2 mb-6">
+                                <Scissors className="w-4 h-4 text-emerald-500" />
+                                Serviços Mais Populares
+                            </h4>
+                            {serviceData.length === 0 ? (
+                                <p className="text-sm text-zinc-400 italic text-center py-6">Nenhum dado no período.</p>
+                            ) : (
+                                <div className="space-y-4">
+                                    {serviceData.map((svc, i) => (
+                                        <div key={i} className="flex items-center gap-3">
+                                            <div className="w-8 flex-shrink-0 text-center text-xs font-bold text-zinc-400">
+                                                #{i + 1}
+                                            </div>
+                                            <div className="flex-1">
+                                                <div className="flex justify-between items-end mb-1">
+                                                    <span className="text-sm font-semibold text-zinc-800 truncate block max-w-[150px]">{svc.name}</span>
+                                                    <span className="text-xs font-bold text-zinc-500">{svc.count}</span>
+                                                </div>
+                                                <div className="w-full bg-zinc-100 rounded-full h-2">
+                                                    <div
+                                                        className="bg-emerald-400 h-2 rounded-full"
+                                                        style={{ width: `${(svc.count / maxServiceVal) * 100}%` }}
+                                                    ></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    ))}
+                                </div>
+                            )}
                         </div>
                     </div>
                 </div>

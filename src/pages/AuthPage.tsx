@@ -54,7 +54,13 @@ export default function AuthPage() {
         setSuccess('E-mail de recuperação enviado! Verifique sua caixa de entrada.');
       }
     } catch (err: any) {
-      setError(err.message === 'Failed to fetch' ? 'Erro de conexão com o Supabase.' : err.message);
+      console.error('Auth error:', err);
+      if (err.message === 'Failed to fetch') {
+        // Supabase sometimes returns 'Failed to fetch' instead of a proper error when rate limited (429) due to missing CORS headers
+        setError('Erro de conexão. Se você solicitou recentemente, aguarde alguns minutos e tente novamente.');
+      } else {
+        setError(err.message);
+      }
     } finally {
       setLoading(false);
     }
